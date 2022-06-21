@@ -1,14 +1,16 @@
 let canvas;
-let ctx;        //Context
-let character = new Image();
 
+let world;
 
 function init(){
+    
     canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
+
+    world = new World(canvas);
 
 
-    character.src = '../img/2_character_pepe/2_walk/W-21.png'
 
-    ctx.drawImage(character, 20, 20, 50, 150)       // welche Datei, X-Position, Y-Position, Breite, Höhe
+
+    console.log('My Character is ', world.character)
+
 }
