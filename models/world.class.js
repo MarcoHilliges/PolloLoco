@@ -20,11 +20,14 @@ class World {
 
     canvas;     // definiert ein canvas um die Parameter zwischen den Funktionen übergeben zu können. 
     ctx;        //ctx bedeutet Context. let muss innerhalb von class nicht mehr geschrieben werden.
+    keyboard;
 
-    constructor(canvas){
+    constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
     }
 
     draw(){
@@ -54,6 +57,23 @@ class World {
     }
 
     addToMap(mo){       // mo = movable Object
+        if(mo.otherDirection){  //object spiegeln   https://www.mediaevent.de/javascript/canvas-scale.html
+            this.ctx.save();
+            this.ctx.translate(mo.width, 0);
+            this.ctx.scale( -1, 1);
+            mo.x = mo.x * -1
+        }
+        
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);  // welche Datei, X-Position, Y-Position, Breite, Höhe
+    
+        if(mo.otherDirection){
+            mo.x = mo.x * -1;
+            this.ctx.restore();
+        }
+    }
+
+    setWorld(){
+        this.character.world = this     // übergibt alle 
+        // this.character.keyboard = this.keyboard
     }
 }

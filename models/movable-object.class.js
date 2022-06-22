@@ -4,6 +4,10 @@ class MovableObject {
     img;
     height = 150;
     width = 100;
+    
+    speed = 15 / 144; // 15px/s         144 ergibt eine sehr flüssige Bewegung
+
+    otherDirection = false;
 
     imageCache = {};
     currentImage = 0;
@@ -26,6 +30,8 @@ class MovableObject {
     }
 
     moveLeft(){
-        
+        setInterval(() => {
+            this.x -= this.speed;   // gleich  this.x = this.x - this.speed;
+        }, 1000 / 144);  // 144 
     }
 }
