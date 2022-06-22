@@ -21,6 +21,7 @@ class World {
     canvas;     // definiert ein canvas um die Parameter zwischen den Funktionen übergeben zu können. 
     ctx;        //ctx bedeutet Context. let muss innerhalb von class nicht mehr geschrieben werden.
     keyboard;
+    camera_x = 0;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -33,10 +34,14 @@ class World {
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);  // löscht den Inhalt des Canvas
 
+        this.ctx.translate(this.camera_x, 0);   //verschiebt das zu zeichnende auf der x-Achse
+
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
         this.addToMap(this.character);
+
+        this.ctx.translate(-this.camera_x, 0);  //verschiebt das zu zeichnende zurück
 
         let self = this;
         // console.log(self);

@@ -39,6 +39,8 @@ class Character extends MovableObject {
                 
             };
 
+            this.world.camera_x = -this.x +120;
+
         }, 1000 / 144);
 
         setInterval(() => {            //Kurzschreibweise einer Funktion.
@@ -56,6 +58,9 @@ class Character extends MovableObject {
 
 
     }
+
+
+
 
 
     jump() {
