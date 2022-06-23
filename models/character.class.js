@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     width = 120;
     height = 250;
-    speed = 100 / 144;  // 100px/s
+    speed = 150 / 144;  // 150px/s
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -13,6 +13,7 @@ class Character extends MovableObject {
     ];
 
     world; // vielleicht eher keyboard;
+    walking_sound = new Audio('./audio/charakterWalking.mp3')
 
     // currentImage = 0;    verschoben in MovableObject
 
@@ -28,15 +29,17 @@ class Character extends MovableObject {
     animate() {
 
         setInterval(() => {            //Kurzschreibweise einer Funktion.
-            if (this.world.keyboard.RIGHT) {
+            this.walking_sound.pause();
+            if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
+                this.walking_sound.play();
             };
 
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x >= -1315) {
                 this.x -= this.speed;
                 this.otherDirection = true;
-                
+                this.walking_sound.play();
             };
 
             this.world.camera_x = -this.x +120;
@@ -44,8 +47,9 @@ class Character extends MovableObject {
         }, 1000 / 144);
 
         setInterval(() => {            //Kurzschreibweise einer Funktion.
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.x += this.speed;
+            if (this.world.keyboard.RIGHT && this.x >= -1315 && this.x <= this.world.level.level_end_x || 
+                this.world.keyboard.LEFT && this.x >= -1315 && this.x <= this.world.level.level_end_x) {
+                // this.x += this.speed;
 
                 // Walk animation
                 let i = this.currentImage % this.IMAGES_WALKING.length; // Modulo-Funktion = gibt nur den Rest als Wert aus 
@@ -54,7 +58,7 @@ class Character extends MovableObject {
                 this.img = this.imageCache[path];
                 this.currentImage++;
             }
-        }, 1000 / 15);
+        }, 1000 / 10);
 
 
     }
