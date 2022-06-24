@@ -25,6 +25,15 @@ class MovableObject {
         });
     }
 
+    playAnimation(images){
+        // z.B. Walk animation
+        let i = this.currentImage % images.length; // Modulo-Funktion = gibt nur den Rest als Wert aus 
+        // 0 / 6 = 0 Rest 0, 1 / 6 Rest 1, ..., 7 / 6 Rest 1 also Rest 0, 1, 2, 3, 4, 5, 0, 1, ...
+        let path = images[i]; // 
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
     moveRight() {
         console.log('Moving right')
     }
@@ -34,4 +43,6 @@ class MovableObject {
             this.x -= this.speed;   // gleich  this.x = this.x - this.speed;
         }, 1000 / 144);  // 144 
     }
+
+
 }

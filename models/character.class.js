@@ -50,13 +50,15 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x >= -1315 && this.x <= this.world.level.level_end_x || 
                 this.world.keyboard.LEFT && this.x >= -1315 && this.x <= this.world.level.level_end_x) {
                 // this.x += this.speed;
+                
+                    this.playAnimation(this.IMAGES_WALKING);
 
-                // Walk animation
-                let i = this.currentImage % this.IMAGES_WALKING.length; // Modulo-Funktion = gibt nur den Rest als Wert aus 
-                // 0 / 6 = 0 Rest 0, 1 / 6 Rest 1, ..., 7 / 6 Rest 1 also Rest 0, 1, 2, 3, 4, 5, 0, 1, ...
-                let path = this.IMAGES_WALKING[i]; // 
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                // // Walk animation
+                // let i = this.currentImage % this.IMAGES_WALKING.length; // Modulo-Funktion = gibt nur den Rest als Wert aus 
+                // // 0 / 6 = 0 Rest 0, 1 / 6 Rest 1, ..., 7 / 6 Rest 1 also Rest 0, 1, 2, 3, 4, 5, 0, 1, ...
+                // let path = this.IMAGES_WALKING[i]; // 
+                // this.img = this.imageCache[path];
+                // this.currentImage++;
             }
         }, 1000 / 10);
 
