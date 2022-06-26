@@ -2,6 +2,7 @@ class Character extends MovableObject {
     width = 120;
     height = 250;
     speed = 150 / 144;  // 150px/s
+    
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -19,10 +20,10 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
-        this.y = 425 - this.height  // y-position - Bildhöhe, da von ober gezählt wird
-
+        this.y = 80  // 425 - this.height y-position - Bildhöhe, da von ober gezählt wird
+        this.objectMinY = 425 - this.height;
         this.loadImages(this.IMAGES_WALKING);
-
+        this.applyGravity(this.objectMinY);
         this.animate();
     }
 

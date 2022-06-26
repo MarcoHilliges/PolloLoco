@@ -12,6 +12,23 @@ class MovableObject {
     imageCache = {};
     currentImage = 0;
     
+    speedY = 0;
+    acceleration = 2.5;   // Gravitationsbeschleunigung
+    objectMinY;
+
+    applyGravity(objectMinY){
+        setInterval(() => {
+            if (this.y < objectMinY){   // objectMinY wird benötigt um 
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }else{
+                this.y = objectMinY;
+            }
+            
+
+        }, 1000 / 25);
+    }
+
     loadImage(path){
         this.img = new Image();         // this.img = document.getElementById('image') <img id="image" scr>
         this.img.src = path;            // path = Pfad
