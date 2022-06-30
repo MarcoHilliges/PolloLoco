@@ -7,7 +7,9 @@ class World {
     ctx;        //ctx bedeutet Context. let muss innerhalb von class nicht mehr geschrieben werden.
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    lifeBar = new LifeBar();
+    coinBar = new CoinBar();
+    bottleBar = new BottleBar();
     throwableObjects = [];
 
     constructor(canvas, keyboard){
@@ -32,7 +34,9 @@ class World {
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);  //verschiebt das zu zeichnende zurück
-        this.addToMap(this.statusBar);
+        this.addToMap(this.lifeBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
         let self = this;
         // console.log(self);
         // debugger;
@@ -92,7 +96,7 @@ class World {
         this.level.enemies.forEach( (enemy) => {
             if(this.character.isColliding(enemy)){
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                this.lifeBar.setPercentage(this.character.energy);
                 console.log('collision with character, energy', this.character.energy);
             }
         })
