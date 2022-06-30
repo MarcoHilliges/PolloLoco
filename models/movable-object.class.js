@@ -7,10 +7,7 @@ class MovableObject extends DrawableObject{
     speed = 15 / 144; // 15px/s         144 ergibt eine sehr flüssige Bewegung
 
     otherDirection = false;
-
-
-
-    
+   
     speedY = 0;
     acceleration = 2.5;   // Gravitationsbeschleunigung
     objectMinY;

@@ -14,10 +14,10 @@ class LifeBar extends DrawableObject {
     constructor(){
         super();
         this.loadImages(this.IMAGES);
-        this.x = 20;
-        this.y = 80;
-        this.width = 200;
-        this.height = 60;
+        this.x = 0;
+        this.y = 0;
+        this.width = 120;
+        this.height = 40;
         this.setPercentage(100);
     }
 
