@@ -1,16 +1,16 @@
-class MovableObject {
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
-    
+class MovableObject extends DrawableObject{
+
+
+    energy = 100;
+
+    lastHit = 0;
+
     speed = 15 / 144; // 15px/s         144 ergibt eine sehr flüssige Bewegung
 
     otherDirection = false;
 
-    imageCache = {};
-    currentImage = 0;
+
+
     
     speedY = 0;
     acceleration = 2.5;   // Gravitationsbeschleunigung
@@ -18,10 +18,11 @@ class MovableObject {
 
     applyGravity(objectMinY){
         setInterval(() => {
-            if (this.y < objectMinY){   // objectMinY wird benötigt um 
+            if (this.isAboveGround() || this.speedY > 0){   // objectMinY wird benötigt um 
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            }else{
+            }
+            else{
                 this.y = objectMinY;
             }
             
@@ -29,18 +30,37 @@ class MovableObject {
         }, 1000 / 25);
     }
 
-    loadImage(path){
-        this.img = new Image();         // this.img = document.getElementById('image') <img id="image" scr>
-        this.img.src = path;            // path = Pfad
+    isAboveGround(){
+        return this.y < this.objectMinY;
     }
 
-    loadImages(arr){
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src =path;
-            this.imageCache[path] = img;
-        });
+    isColliding(mo){
+        return this.x + this.width > mo.x &&
+        this.y + this.height > mo.y &&
+        this.x < mo.x &&
+        this.y < mo.y + mo.height;
     }
+
+    hit(){
+        this.energy -= 5;
+        if(this.energy < 0){
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt(){
+        let timepassed = new Date().getTime() - this.lastHit; // Differenz in Millisekunden
+        timepassed = timepassed / 1000; // Differenz in Sekunden
+        return timepassed < 1;
+    }
+
+    isDead(){
+        return this.energy == 0;
+    }
+
+
 
     playAnimation(images){
         // z.B. Walk animation
@@ -52,14 +72,12 @@ class MovableObject {
     }
 
     moveRight() {
-        console.log('Moving right')
+        this.x += this.speed;
     }
 
     moveLeft(){
-        setInterval(() => {
-            this.x -= this.speed;   // gleich  this.x = this.x - this.speed;
-        }, 1000 / 144);  // 144 
+        this.x -= this.speed;
     }
 
-
+    
 }

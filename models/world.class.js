@@ -7,6 +7,8 @@ class World {
     ctx;        //ctx bedeutet Context. let muss innerhalb von class nicht mehr geschrieben werden.
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
+    throwableObjects = [];
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -14,6 +16,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.run();
     }
 
     draw(){
@@ -22,12 +25,14 @@ class World {
         this.ctx.translate(this.camera_x, 0);   //verschiebt das zu zeichnende auf der x-Achse
 
         this.addObjectsToMap(this.level.backgroundObjects);
+        
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);  //verschiebt das zu zeichnende zurück
-
+        this.addToMap(this.statusBar);
         let self = this;
         // console.log(self);
         // debugger;
@@ -48,22 +53,55 @@ class World {
 
     addToMap(mo){       // mo = movable Object
         if(mo.otherDirection){  //object spiegeln   https://www.mediaevent.de/javascript/canvas-scale.html
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale( -1, 1);
-            mo.x = mo.x * -1
+            this.flipImage(mo);
         }
         
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);  // welche Datei, X-Position, Y-Position, Breite, Höhe
-    
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
+
         if(mo.otherDirection){
-            mo.x = mo.x * -1;
-            this.ctx.restore();
+            this.flipImageBack(mo);
         }
+    }
+
+    flipImage(mo){
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale( -1, 1);
+        mo.x = mo.x * -1
+    }
+
+    flipImageBack(mo){
+        mo.x = mo.x * -1;
+        this.ctx.restore();
     }
 
     setWorld(){
         this.character.world = this     // übergibt alle 
         // this.character.keyboard = this.keyboard
+    }
+
+    run(){
+        setInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 100);
+    }
+
+    checkCollisions(){
+        this.level.enemies.forEach( (enemy) => {
+            if(this.character.isColliding(enemy)){
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+                console.log('collision with character, energy', this.character.energy);
+            }
+        })
+    }
+
+    checkThrowObjects(){
+        if(this.keyboard.D){
+            let bottle = new ThrowableObject(this.character.x + this.character.width/2  , this.character.y + this.character.width);
+            this.throwableObjects.push(bottle);
+        }
     }
 }
