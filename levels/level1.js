@@ -1,9 +1,9 @@
 const level1 = new Level(
     [
         new Endboss(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
+        // new Chicken(),
     ],
     [
         new Cloud()
@@ -23,5 +23,18 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/3_third_layer/full.png', 1439),
         new BackgroundObject('img/5_background/layers/2_second_layer/full.png', 1439),
         new BackgroundObject('img/5_background/layers/1_first_layer/full.png', 1439)
+    ],
+    [
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        // new ThrowableObject(0, 0, true),
+        new ThrowableObject(0, 0, true)
     ]
+
 );

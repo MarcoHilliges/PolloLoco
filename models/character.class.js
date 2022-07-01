@@ -1,4 +1,5 @@
 class Character extends MovableObject {
+    energy = 100;
     width = 120;
     height = 250;
     speed = 200 / 144;  // 150px/s

@@ -18,7 +18,7 @@ class LifeBarEndboss extends DrawableObject {
         this.y = 0;
         this.width = 180;
         this.height = 0;
-        this.setPercentage(20);
+        this.setPercentage(200);
     }
 
     setPercentage(percentage) {
@@ -28,19 +28,19 @@ class LifeBarEndboss extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.percentage == 20) {
+        if (this.percentage == 200) {
             return 5;
         }
-        else if (this.percentage >= 16) {
+        else if (this.percentage >= 160) {
             return 4;
         }
-        else if (this.percentage >= 12) {
+        else if (this.percentage >= 120) {
             return 3;
         }
-        else if (this.percentage >= 8) {
+        else if (this.percentage >= 80) {
             return 2;
         }
-        else if (this.percentage >= 4) {
+        else if (this.percentage >= 40) {
             return 1;
         }
         else {

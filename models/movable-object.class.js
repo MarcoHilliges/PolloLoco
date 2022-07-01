@@ -31,14 +31,21 @@ class MovableObject extends DrawableObject{
     }
 
     isColliding(mo){
-        return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height;
+        return this.x + this.width -23> mo.x &&
+        this.y + this.height -35> mo.y &&
+        this.x +8 < mo.x &&
+        this.y +5 < mo.y + mo.height;
     }
 
-    hit(){
-        this.energy -= 2;
+    isCollidingTop(mo){
+        return this.x + this.width -23> mo.x &&
+        this.y + this.height > mo.y &&
+        this.x +8 < mo.x &&
+        this.y + this.height -10< mo.y + mo.height*0.9 ;
+    }
+
+    hit(demage){
+        this.energy -= demage;
         if(this.energy < 0){
             this.energy = 0;
         } else {

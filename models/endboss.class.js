@@ -2,11 +2,13 @@ class Endboss extends MovableObject{
     
     height = 450;
     width= 300;
-    energy = 20;
+    energy = 200;
     speed = 150 / 144;  // 150px/s
     angry = false;
     attack = false;
     walking = false;
+    hurt = false;
+    dead = false;
 
     IMAGES_WAITING = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -45,19 +47,31 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/3_attack/G20.png',
     ]
 
+    IMAGES_HURT = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png'
+    ]
+
+    IMAGES_DEAD = [
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png'
+    ]
+
 
     constructor(){
         super().loadImage(this.IMAGES_WAITING[0]);
 
         this.x = 1000;
-        this.y = 460 - this.height      // y-position - Bildhöhe, da von ober gezählt wird
-        
-        
+        this.y = 460 - this.height      // y-position - Bildhöhe, da von ober gezählt wird   
 
         this.loadImages(this.IMAGES_WAITING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
 
         setTimeout(() => {
             this.animate();
@@ -68,6 +82,9 @@ class Endboss extends MovableObject{
     animate(){
 
         setInterval(() => {
+            if(this.energy <= 0){
+                this.dead = true;
+            }
             if (this.x - world.character.x < 700 && !this.angry){
                 world.lifeBarEndboss.height = 60;
             }
@@ -89,27 +106,36 @@ class Endboss extends MovableObject{
         }, 100);
 
         setInterval( () => {            //Kurzschreibweise einer Funktion.
-            if(!this.angry && !this.angry){
+            if(this.dead){
+                this.playAnimation(this.IMAGES_DEAD);
+            }
+            else if(this.hurt){
+                this.playAnimation(this.IMAGES_HURT);
+                setTimeout(() => {
+                    this.hurt = false;
+                }, 500);
+            }
+            else if(!this.angry && !this.angry){
                 this.playAnimation(this.IMAGES_WAITING);
                 console.log('waiting',this.angry, this.walking, this.attack)
             }
-            if(this.angry && !this.walking && !this.attack){
+            else if(this.angry && !this.walking && !this.attack){
                 this.playAnimation(this.IMAGES_ALERT);
                 console.log('alert',this.angry, this.walking, this.attack)
             }
-            if(this.walking){
+            else if(this.walking){
                 this.playAnimation(this.IMAGES_WALKING);
                 console.log('walking',this.angry, this.walking, this.attack)
             }
-            if(this.attack){
+            else if(this.attack){
                 this.playAnimation(this.IMAGES_ATTACK);
                 console.log('attack',this.angry, this.walking, this.attack)
             }
             
-        }, 150);
+        }, 175);
 
         setInterval(() => {
-            if(this.walking || this.attack){
+            if(this.walking && !this.hurt && !this.dead || this.attack && !this.hurt && !this.dead){
                 if(this.x - world.character.x >= 50){                  
                     this.moveLeft();
                 }

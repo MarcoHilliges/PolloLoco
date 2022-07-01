@@ -1,6 +1,9 @@
 class ThrowableObject extends MovableObject{
     
     objectMinY = 365;
+    y = 365;
+    onGround = false;
+    distroyed = false;
 
     IMAGES_THROW = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -22,16 +25,27 @@ class ThrowableObject extends MovableObject{
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ]
 
-    constructor(x,y){
+    constructor(x,y,onGround){
         super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_THROW);
         this.loadImages(this.IMAGES_ON_GROUND);
         this.loadImages(this.IMAGES_SPLASH);
-        this.x = 100;
-        this.y = 100;
+        if(onGround){
+            console.log(onGround);
+            
+            this.x = -1200 + Math.random() * 3700;     // Math.random() gibt eine zufällige Zahl zwischen 0 und 1 aus
+            this.y = this.objectMinY;      // y-position - Bildhöhe, da von ober gezählt wird
+    
+        }
+        else{
+            this.x = 100;
+            this.y = 100;
+            this.throw(x, y);
+        }
+        
         this.height = 60;
         this.width = 40;
-        this.throw(x, y);
+    
         this.animate();
     }
 
@@ -41,7 +55,7 @@ class ThrowableObject extends MovableObject{
                 this.playAnimation(this.IMAGES_SPLASH);
                 this.acceleration = 0;
                 this.speedY = 0;
-                
+                this.distroyed = true;
                 
                 setTimeout(() => {
                     this.x = -2000;
@@ -55,6 +69,7 @@ class ThrowableObject extends MovableObject{
             }
             else if(this.y==this.objectMinY){
                 this.playAnimation(this.IMAGES_ON_GROUND);
+                this.onGround = true;
             }
         }, 100);
     }

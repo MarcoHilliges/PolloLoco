@@ -30,8 +30,9 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
-        
+
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
 
@@ -99,11 +100,33 @@ class World {
     checkCollisions(){
         this.level.enemies.forEach( (enemy) => {
             if(this.character.isColliding(enemy)){
-                this.character.hit();
+                if(enemy.energy>0){
+                    this.character.hit(2);
+                }
                 this.lifeBar.setPercentage(this.character.energy);
                 // console.log('collision with character, energy', this.character.energy);
             }
+            if(this.character.isCollidingTop(enemy)){
+                enemy.hit(2);
+                
+                // console.log('collision with enemy, energy', enemy.energy);
+            }
         })
+        this.level.bottles.forEach((bottle) => {
+            if(this.character.isColliding(bottle)){
+                this.bottleBar.setPercentage(this.bottleBar.percentage + 10);
+                bottle.x = -3000;
+                // console.log('collision with bottle');
+            }
+        });
+        this.throwableObjects.forEach((bottle) => {
+            if(this.character.isColliding(bottle) && bottle.onGround){
+                this.bottleBar.setPercentage(this.bottleBar.percentage + 10);
+                bottle.x = -3000;
+                // console.log('collision with bottle');
+            }
+        });
+        
     }
 
     checkThrowObjects(){
@@ -118,8 +141,9 @@ class World {
             // console.log('Wurf');
             this.throwableObjects.forEach( (bottle) => {
                 if(this.level.enemies[0].isColliding(bottle)){
-                    this.level.enemies[0].hit();
+                    this.level.enemies[0].hit(10);
                     this.lifeBarEndboss.setPercentage(this.level.enemies[0].energy);
+                    this.level.enemies[0].hurt = true;
                     // console.log('collision with bottle and endboss, energy', this.level.enemies[0].energy);
 
                     bottle.energy = -100;
