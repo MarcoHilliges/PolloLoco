@@ -13,10 +13,20 @@ class ThrowableObject extends MovableObject{
         'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'
     ]
 
+    IMAGES_SPLASH = [
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+    ]
+
     constructor(x,y){
         super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_THROW);
         this.loadImages(this.IMAGES_ON_GROUND);
+        this.loadImages(this.IMAGES_SPLASH);
         this.x = 100;
         this.y = 100;
         this.height = 60;
@@ -27,10 +37,23 @@ class ThrowableObject extends MovableObject{
 
     animate(){
         setInterval(() => {
-            if(this.y!==this.objectMinY){
+            if(this.energy <= 0){
+                this.playAnimation(this.IMAGES_SPLASH);
+                this.acceleration = 0;
+                this.speedY = 0;
+                
+                
+                setTimeout(() => {
+                    this.x = -2000;
+                    this.height = 0;
+                }, 150);
+                
+            }
+
+            else if(this.y!==this.objectMinY){
                 this.playAnimation(this.IMAGES_THROW);
             }
-            if(this.y==this.objectMinY){
+            else if(this.y==this.objectMinY){
                 this.playAnimation(this.IMAGES_ON_GROUND);
             }
         }, 100);
@@ -44,7 +67,7 @@ class ThrowableObject extends MovableObject{
         this.applyGravity(this.objectMinY);
 
         setInterval(() => {           
-            if(this.y!==this.objectMinY){
+            if(this.y!==this.objectMinY || this.y > this.objectMinY){
                 this.x += 2.5;
             }
         }, 1000 / 144);

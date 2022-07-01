@@ -11,6 +11,7 @@ class World {
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
     throwableObjects = [];
+    lifeBarEndboss = new LifeBarEndboss();
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -30,6 +31,7 @@ class World {
         
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
 
@@ -37,6 +39,7 @@ class World {
         this.addToMap(this.lifeBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.lifeBarEndboss);
         let self = this;
         // console.log(self);
         // debugger;
@@ -89,6 +92,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkCollisionsThrowObjects();
         }, 100);
     }
 
@@ -97,7 +101,7 @@ class World {
             if(this.character.isColliding(enemy)){
                 this.character.hit();
                 this.lifeBar.setPercentage(this.character.energy);
-                console.log('collision with character, energy', this.character.energy);
+                // console.log('collision with character, energy', this.character.energy);
             }
         })
     }
@@ -106,6 +110,23 @@ class World {
         if(this.keyboard.D){
             let bottle = new ThrowableObject(this.character.x + this.character.width/2  , this.character.y + this.character.width);
             this.throwableObjects.push(bottle);
+        }
+    }
+
+    checkCollisionsThrowObjects(){
+        if(this.throwableObjects.length > 0){
+            // console.log('Wurf');
+            this.throwableObjects.forEach( (bottle) => {
+                if(this.level.enemies[0].isColliding(bottle)){
+                    this.level.enemies[0].hit();
+                    this.lifeBarEndboss.setPercentage(this.level.enemies[0].energy);
+                    // console.log('collision with bottle and endboss, energy', this.level.enemies[0].energy);
+
+                    bottle.energy = -100;
+                    
+                }
+                // console.log(bottle);
+            })
         }
     }
 }

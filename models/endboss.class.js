@@ -2,24 +2,18 @@ class Endboss extends MovableObject{
     
     height = 450;
     width= 300;
-    
+    energy = 20;
+    speed = 150 / 144;  // 150px/s
+    angry = false;
+    attack = false;
+    walking = false;
+
     IMAGES_WAITING = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
         'img/4_enemie_boss_chicken/2_alert/G7.png',
         'img/4_enemie_boss_chicken/2_alert/G8.png',
         'img/4_enemie_boss_chicken/2_alert/G9.png',
-    ];
-
-    IMAGES_ALERT = [
-        'img/4_enemie_boss_chicken/2_alert/G5.png',
-        'img/4_enemie_boss_chicken/2_alert/G6.png',
-        'img/4_enemie_boss_chicken/2_alert/G7.png',
-        'img/4_enemie_boss_chicken/2_alert/G8.png',
-        'img/4_enemie_boss_chicken/2_alert/G9.png',
-        'img/4_enemie_boss_chicken/2_alert/G10.png',
-        'img/4_enemie_boss_chicken/2_alert/G11.png',
-        'img/4_enemie_boss_chicken/2_alert/G12.png',
     ];
 
     IMAGES_WALKING = [
@@ -29,23 +23,101 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/1_walk/G4.png'
     ];
 
+    IMAGES_ALERT = [
+        // 'img/4_enemie_boss_chicken/2_alert/G5.png',
+        // 'img/4_enemie_boss_chicken/2_alert/G6.png',
+        // 'img/4_enemie_boss_chicken/2_alert/G7.png',
+        // 'img/4_enemie_boss_chicken/2_alert/G8.png',
+        'img/4_enemie_boss_chicken/2_alert/G9.png',
+        'img/4_enemie_boss_chicken/2_alert/G10.png',
+        'img/4_enemie_boss_chicken/2_alert/G11.png',
+        // 'img/4_enemie_boss_chicken/2_alert/G12.png',
+    ];
+
+    IMAGES_ATTACK = [
+        // 'img/4_enemie_boss_chicken/3_attack/G13.png',
+        // 'img/4_enemie_boss_chicken/3_attack/G14.png',
+        // 'img/4_enemie_boss_chicken/3_attack/G15.png',
+        // 'img/4_enemie_boss_chicken/3_attack/G16.png',
+        'img/4_enemie_boss_chicken/3_attack/G17.png',
+        'img/4_enemie_boss_chicken/3_attack/G18.png',
+        'img/4_enemie_boss_chicken/3_attack/G19.png',
+        'img/4_enemie_boss_chicken/3_attack/G20.png',
+    ]
+
+
     constructor(){
         super().loadImage(this.IMAGES_WAITING[0]);
 
-        this.x = 200 + Math.random() * 500;     // Math.random() gibt eine zufällige Zahl zwischen 0 und 1 aus
+        this.x = 1000;
         this.y = 460 - this.height      // y-position - Bildhöhe, da von ober gezählt wird
         
-        this.speed = 0.05 + Math.random() * 0.15;   // min. 0.05 + max. 0.15 = max.randomSpeed 0.2
+        
 
         this.loadImages(this.IMAGES_WAITING);
-        this.animate();
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_ATTACK);
+
+        setTimeout(() => {
+            this.animate();
+        }, 200);
+        
     }
 
     animate(){
 
+        setInterval(() => {
+            if (this.x - world.character.x < 700 && !this.angry){
+                world.lifeBarEndboss.height = 60;
+            }
+            if (this.x - world.character.x < 500 && !this.attack  && !this.walking ){
+                this.angry = true;
+            }
+            if (this.energy < 20 && !this.walking && !this.attack){
+                this.angry = true;
+                this.walking = true;
+            }
+            if (this.x - world.character.x < 350 && this.x - world.character.x > 200){
+                this.walking = true;
+                this.attack = false;
+            } 
+            if (this.x - world.character.x < 200){
+                this.walking = false;
+                this.attack = true;
+            } 
+        }, 100);
+
         setInterval( () => {            //Kurzschreibweise einer Funktion.
-            this.playAnimation(this.IMAGES_WAITING);
+            if(!this.angry && !this.angry){
+                this.playAnimation(this.IMAGES_WAITING);
+                console.log('waiting',this.angry, this.walking, this.attack)
+            }
+            if(this.angry && !this.walking && !this.attack){
+                this.playAnimation(this.IMAGES_ALERT);
+                console.log('alert',this.angry, this.walking, this.attack)
+            }
+            if(this.walking){
+                this.playAnimation(this.IMAGES_WALKING);
+                console.log('walking',this.angry, this.walking, this.attack)
+            }
+            if(this.attack){
+                this.playAnimation(this.IMAGES_ATTACK);
+                console.log('attack',this.angry, this.walking, this.attack)
+            }
             
-        }, 250);
+        }, 150);
+
+        setInterval(() => {
+            if(this.walking || this.attack){
+                if(this.x - world.character.x >= 50){                  
+                    this.moveLeft();
+                }
+                if(this.x - world.character.x < 10){                   
+                    this.moveRight();
+                }               
+            }
+            
+        }, 1000/144);
     }
 }
