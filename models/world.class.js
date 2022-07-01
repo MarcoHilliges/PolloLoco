@@ -10,6 +10,7 @@ class World {
     lifeBar = new LifeBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
+    coins = [];
     throwableObjects = [];
     lifeBarEndboss = new LifeBarEndboss();
 
@@ -30,6 +31,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
 
@@ -106,33 +108,50 @@ class World {
                 this.lifeBar.setPercentage(this.character.energy);
                 // console.log('collision with character, energy', this.character.energy);
             }
-            if(this.character.isCollidingTop(enemy)){
+            if(this.character.isCollidingTop(enemy) && !enemy.dead){
+                console.log(enemy.dead);
                 enemy.hit(2);
-                
+                setTimeout(() => {
+                    console.log(enemy.dead);
+                if (enemy.dead){
+                    console.log('coin')
+                    let coin = new Coin(enemy.x-30, 100);
+                    this.coins.push(coin);
+                }
+                }, 250);
                 // console.log('collision with enemy, energy', enemy.energy);
             }
         })
-        this.level.bottles.forEach((bottle) => {
+        this.level.bottles.forEach((bottle) => { //Aufheben generierter Bottles
             if(this.character.isColliding(bottle)){
-                this.bottleBar.setPercentage(this.bottleBar.percentage + 10);
+                this.bottleBar.setPercentage(this.bottleBar.percentage + 5);
                 bottle.x = -3000;
                 // console.log('collision with bottle');
             }
         });
-        this.throwableObjects.forEach((bottle) => {
+        this.throwableObjects.forEach((bottle) => { //Aufheben geworfener Bottles
             if(this.character.isColliding(bottle) && bottle.onGround){
-                this.bottleBar.setPercentage(this.bottleBar.percentage + 10);
+                this.bottleBar.setPercentage(this.bottleBar.percentage + 5);
                 bottle.x = -3000;
                 // console.log('collision with bottle');
+            }
+        });
+        this.coins.forEach((coin) => { //Aufheben von Coins
+            if(this.character.isColliding(coin) && !coin.collected){
+                this.coinBar.setPercentage(this.coinBar.percentage + 5);
+                coin.collected = true;
+                coin.x = -3000;
+                console.log('collision with coin');
             }
         });
         
     }
 
-    checkThrowObjects(){
-        if(this.keyboard.D){
+    checkThrowObjects(){    // add Bottle !!!
+        if(this.keyboard.D && this.bottleBar.percentage > 0){
             let bottle = new ThrowableObject(this.character.x + this.character.width/2  , this.character.y + this.character.width);
             this.throwableObjects.push(bottle);
+            this.bottleBar.setPercentage(this.bottleBar.percentage - 5);
         }
     }
 
@@ -140,7 +159,7 @@ class World {
         if(this.throwableObjects.length > 0){
             // console.log('Wurf');
             this.throwableObjects.forEach( (bottle) => {
-                if(this.level.enemies[0].isColliding(bottle)){
+                if(this.level.enemies[0].isColliding(bottle) && !bottle.onGround){
                     this.level.enemies[0].hit(10);
                     this.lifeBarEndboss.setPercentage(this.level.enemies[0].energy);
                     this.level.enemies[0].hurt = true;

@@ -91,7 +91,7 @@ class Endboss extends MovableObject{
             if (this.x - world.character.x < 500 && !this.attack  && !this.walking ){
                 this.angry = true;
             }
-            if (this.energy < 20 && !this.walking && !this.attack){
+            if (this.energy < 200 && !this.walking && !this.attack){
                 this.angry = true;
                 this.walking = true;
             }
