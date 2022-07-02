@@ -21,7 +21,7 @@ class Chicken extends MovableObject{
         this.x = -1200 + Math.random() * 3400;     // Math.random() gibt eine zufällige Zahl zwischen 0 und 1 aus
         this.y = 420 - this.height      // y-position - Bildhöhe, da von ober gezählt wird
         
-        this.speed = 0.05 + Math.random() * 0.15;   // min. 0.05 + max. 0.15 = max.randomSpeed 0.2
+        this.speed = 0.05 + Math.random() * 1.0;   // min. 0.05 + max. 0.15 = max.randomSpeed 0.2
 
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
