@@ -38,9 +38,9 @@ class MovableObject extends DrawableObject{
     }
 
     isCollidingTop(mo){
-        return this.x + this.width -23> mo.x &&
+        return this.x + this.width -15> mo.x &&
         this.y + this.height > mo.y &&
-        this.x +8 < mo.x &&
+        this.x +15 < mo.x &&
         this.y + this.height -10< mo.y + mo.height*0.9 ;
     }
 

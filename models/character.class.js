@@ -115,12 +115,20 @@ class Character extends MovableObject {
 
         }, 1000 / 144);
 
-
-
+        let i = 0;
+        
         setInterval(() => {            //Kurzschreibweise einer Funktion.
-            if (this.isDead()){
+            if (this.isDead() && i < 5){
                 this.playAnimation(this.IMAGES_DEAD);
-
+                i++;
+            }
+            else if (this.isDead() && i >= 5){
+                this.loadImage('img/2_character_pepe/5_dead/D-57.png');
+                setTimeout(() => {
+                    this.world.gameLose = true;
+                    console.log('Lose');
+                }, 500);
+               
             }
 
             else if (this.isHurt()){
@@ -158,7 +166,7 @@ class Character extends MovableObject {
                     // this.currentImage++;
                 }
             }
-        }, 1000 / 10);
+        }, 1000 / 7);
 
     }
 

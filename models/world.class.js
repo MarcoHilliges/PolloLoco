@@ -13,6 +13,8 @@ class World {
     coins = [];
     throwableObjects = [];
     lifeBarEndboss = new LifeBarEndboss();
+    gameWin = false;
+    gameLose = false;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -47,7 +49,18 @@ class World {
         // console.log(self);
         // debugger;
         requestAnimationFrame(function(){  // aktualliert sooft der Browser zulässt und pausiert wenn der Tab gewächselt wird
-            self.draw();
+            if(!world.gameWin && !world.gameLose){
+                self.draw();
+            }
+            if(world.gameWin){
+                document.getElementById('layerGameWin').classList.remove('d-none');
+                document.getElementById('gameRestartButton').classList.remove('d-none');
+            };
+            if(world.gameLose){
+                document.getElementById('layerGameLose').classList.remove('d-none');
+                document.getElementById('gameRestartButton').classList.remove('d-none');
+            };
+            
         });
     }
 

@@ -1,9 +1,28 @@
-const level1 = new Level(
+let level1;
+
+function loadAnimies(){
+level1 = new Level(
     [
         new Endboss(),
+        new Chicken_mini(),
+        new Chicken_mini(),
+        new Chicken_mini(),
+        new Chicken_mini(),
+        new Chicken_mini(),
+        new Chicken_mini(),
+        new Chicken_mini(),
+        new Chicken_mini(),
+        new Chicken_mini(),
         new Chicken(),
         new Chicken(),
         new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken()
     ],
     [
         new Cloud()
@@ -38,3 +57,4 @@ const level1 = new Level(
     ]
 
 );
+}

@@ -63,7 +63,7 @@ class Endboss extends MovableObject{
     constructor(){
         super().loadImage(this.IMAGES_WAITING[0]);
 
-        this.x = 1000;
+        this.x = 2250;
         this.y = 460 - this.height      // y-position - Bildhöhe, da von ober gezählt wird   
 
         this.loadImages(this.IMAGES_WAITING);
@@ -105,10 +105,22 @@ class Endboss extends MovableObject{
             } 
         }, 100);
 
+        let i = 0;
+
         setInterval( () => {            //Kurzschreibweise einer Funktion.
-            if(this.dead){
+            if(this.dead && i < 3){
                 this.playAnimation(this.IMAGES_DEAD);
+                i++;
             }
+            else if (this.dead && i >= 3){
+                this.loadImage('img/4_enemie_boss_chicken/5_dead/G26.png');
+                setTimeout(() => {
+                    world.gameWin = true;
+                console.log('Win');
+                }, 500);
+                
+            }
+
             else if(this.hurt){
                 this.playAnimation(this.IMAGES_HURT);
                 setTimeout(() => {
@@ -117,19 +129,19 @@ class Endboss extends MovableObject{
             }
             else if(!this.angry && !this.angry){
                 this.playAnimation(this.IMAGES_WAITING);
-                console.log('waiting',this.angry, this.walking, this.attack)
+                // console.log('waiting',this.angry, this.walking, this.attack)
             }
             else if(this.angry && !this.walking && !this.attack){
                 this.playAnimation(this.IMAGES_ALERT);
-                console.log('alert',this.angry, this.walking, this.attack)
+                // console.log('alert',this.angry, this.walking, this.attack)
             }
             else if(this.walking){
                 this.playAnimation(this.IMAGES_WALKING);
-                console.log('walking',this.angry, this.walking, this.attack)
+                // console.log('walking',this.angry, this.walking, this.attack)
             }
             else if(this.attack){
                 this.playAnimation(this.IMAGES_ATTACK);
-                console.log('attack',this.angry, this.walking, this.attack)
+                // console.log('attack',this.angry, this.walking, this.attack)
             }
             
         }, 175);

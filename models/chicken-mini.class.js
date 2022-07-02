@@ -1,22 +1,22 @@
-class Chicken extends MovableObject{
-    height = 60;
-    width= 40;
+class Chicken_mini extends MovableObject{
+    height = 40;
+    width= 30;
     y = 400;
     energy = 2;
     dead = false;
     IMAGES_WALKING = [
-        'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
+        'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        'img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
     ];
     IMAGES_DEAD = [
-        'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
+        'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ]
 
     // currentImage = 0;    verschoben in MovableObject
 
     constructor(){
-        super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
+        super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
 
         this.x = -1200 + Math.random() * 3400;     // Math.random() gibt eine zufällige Zahl zwischen 0 und 1 aus
         this.y = 420 - this.height      // y-position - Bildhöhe, da von ober gezählt wird

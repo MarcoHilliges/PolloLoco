@@ -2,12 +2,16 @@ let canvas;
 let world;
 let keyboard = new KeyBoard();
 
-function init(){
+function start(){
     
+    document.getElementById('layerGameStart').classList.add('d-none');
+    document.getElementById('gameStartButton').classList.add('d-none');
+    
+    loadAnimies();
     canvas = document.getElementById('canvas');
 
     world = new World(canvas, keyboard);
-
+    
 
 
 
