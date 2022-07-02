@@ -15,7 +15,7 @@ function start(){
 
 
 
-    console.log('My Character is ', world.character)
+    // console.log('My Character is ', world.character)
 
 }
 

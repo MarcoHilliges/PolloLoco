@@ -82,5 +82,42 @@ class MovableObject extends DrawableObject{
         this.x -= this.speed;
     }
 
-    
+    randomDirection(){
+        if(this.dead == false){
+            let number = Math.round(Math.random());
+
+            if(number == 1){this.otherDirection = true;}
+            else{this.otherDirection = false;}
+        }
+    }
+
+    backgroundMovingRight(){
+        world.level.backgroundFirstLayer.forEach((background) => {
+            background.x += 0;
+        });
+        world.level.backgroundSecondLayer.forEach((background) => {
+            background.x += 0.4;
+        });
+        world.level.backgroundThirdLayer.forEach((background) => {
+            background.x += 1;
+        });
+        world.level.clouds.forEach((background) => {
+            background.x += 1;
+        });
+    }
+
+    backgroundMovingLeft(){
+        world.level.backgroundFirstLayer.forEach((background) => {
+            background.x -= 0;
+        });
+        world.level.backgroundSecondLayer.forEach((background) => {
+            background.x -= 0.4;
+        });
+        world.level.backgroundThirdLayer.forEach((background) => {
+            background.x -= 1;
+        });
+        world.level.clouds.forEach((background) => {
+            background.x -= 1;
+        });
+    }
 }

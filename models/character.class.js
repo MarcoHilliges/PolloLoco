@@ -78,6 +78,7 @@ class Character extends MovableObject {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
         this.y = 425  // 425 - this.height y-position - Bildhöhe, da von ober gezählt wird
         this.objectMinY = 425 - this.height;
+        this.x = -1300;
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
@@ -97,6 +98,7 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 this.walking_sound.play();
                 this.timeLastMove = 0;
+                this.backgroundMovingRight();
             };
 
             if (this.world.keyboard.LEFT && this.x >= -1315) {
@@ -104,6 +106,7 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.walking_sound.play();
                 this.timeLastMove = 0;
+                this.backgroundMovingLeft();
             };
 
             if(this.world.keyboard.SPACE && !this.isAboveGround() ){
@@ -126,7 +129,7 @@ class Character extends MovableObject {
                 this.loadImage('img/2_character_pepe/5_dead/D-57.png');
                 setTimeout(() => {
                     this.world.gameLose = true;
-                    console.log('Lose');
+                    // console.log('Lose');
                 }, 500);
                
             }

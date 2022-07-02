@@ -31,7 +31,9 @@ class World {
         this.ctx.translate(this.camera_x, 0);   //verschiebt das zu zeichnende auf der x-Achse
 
         this.addObjectsToMap(this.level.backgroundObjects);
-        
+        this.addObjectsToMap(this.level.backgroundThirdLayer);
+        this.addObjectsToMap(this.level.backgroundSecondLayer);
+        this.addObjectsToMap(this.level.backgroundFirstLayer);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.level.bottles);
@@ -80,7 +82,7 @@ class World {
         }
         
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);      // add HitBox !!!!
 
         if(mo.otherDirection){
             this.flipImageBack(mo);
@@ -122,12 +124,12 @@ class World {
                 // console.log('collision with character, energy', this.character.energy);
             }
             if(this.character.isCollidingTop(enemy) && !enemy.dead){
-                console.log(enemy.dead);
+                // console.log(enemy.dead);
                 enemy.hit(2);
                 setTimeout(() => {
-                    console.log(enemy.dead);
+                    // console.log(enemy.dead);
                 if (enemy.dead){
-                    console.log('coin')
+                    // console.log('coin')
                     let coin = new Coin(enemy.x-30, 100);
                     this.coins.push(coin);
                 }
@@ -154,7 +156,7 @@ class World {
                 this.coinBar.setPercentage(this.coinBar.percentage + 5);
                 coin.collected = true;
                 coin.x = -3000;
-                console.log('collision with coin');
+                // console.log('collision with coin');
             }
         });
         

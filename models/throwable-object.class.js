@@ -31,9 +31,9 @@ class ThrowableObject extends MovableObject{
         this.loadImages(this.IMAGES_ON_GROUND);
         this.loadImages(this.IMAGES_SPLASH);
         if(onGround){
-            console.log(onGround);
+            // console.log(onGround);
             
-            this.x = -1200 + Math.random() * 3700;     // Math.random() gibt eine zufällige Zahl zwischen 0 und 1 aus
+            this.x = -1000 + Math.random() * 3000;     // Math.random() gibt eine zufällige Zahl zwischen 0 und 1 aus
             this.y = this.objectMinY;      // y-position - Bildhöhe, da von ober gezählt wird
     
         }

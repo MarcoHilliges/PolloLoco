@@ -116,7 +116,7 @@ class Endboss extends MovableObject{
                 this.loadImage('img/4_enemie_boss_chicken/5_dead/G26.png');
                 setTimeout(() => {
                     world.gameWin = true;
-                console.log('Win');
+                // console.log('Win');
                 }, 500);
                 
             }
