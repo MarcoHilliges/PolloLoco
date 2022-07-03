@@ -57,10 +57,14 @@ class World {
             if(world.gameWin){
                 document.getElementById('layerGameWin').classList.remove('d-none');
                 document.getElementById('gameRestartButton').classList.remove('d-none');
+                document.getElementById('gameButtonsLeft').classList.add('d-none');
+                document.getElementById('gameButtonsRight').classList.add('d-none');
             };
             if(world.gameLose){
                 document.getElementById('layerGameLose').classList.remove('d-none');
                 document.getElementById('gameRestartButton').classList.remove('d-none');
+                document.getElementById('gameButtonsLeft').classList.add('d-none');
+                document.getElementById('gameButtonsRight').classList.add('d-none');
             };
             
         });

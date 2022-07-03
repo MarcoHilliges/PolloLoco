@@ -32,22 +32,30 @@
 </head>
 <body onload="">
 
-    <h1>El Pollo Loco</h1>
 <div id="frame">
     <canvas id="canvas" width="720" height="480" class="">
                
     </canvas>
 
     <div id="overlay">
-        <img id="layerGameStart" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">      
-        <div id="gameStartButton" class="start-button">
-            <button onclick="start()">start</button>
-        </div>
+        <img class="coverImg" id="layerGameStart" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt=""> 
+        <img id="layerGameWin" class="d-none coverImg" src="img/9_intro_outro_screens/game_over/game over.png" alt="">
+        <img id="layerGameLose" class="d-none coverImg" src="img/9_intro_outro_screens/game_over/you lost.png" alt="">     
+        <div class="start-button">
+            <img id="gameStartButton" class="user-button" src="./img/10_buttons/play.png" title="play" alt="play"  onclick="start()">
+            
+            <div id="gameButtonsLeft" class="gameButtons d-none">
+                
+                <img id="gameButtonJump" class="user-button" src="./img/10_buttons/jump.png" title="play" alt="play" ontouchstart=""  onclick="">
+                <img id="gameButtonThrow" class="user-button" src="./img/10_buttons/throw.png" title="play" alt="play"  onclick="">
+            </div>
+            <div id="gameButtonsRight" class="gameButtons d-none">
+                <img id="gameButtonLeft" class="user-button" src="./img/10_buttons/left.png" title="play" alt="play"  onclick="">
+                <img id="gameButtonRight" class="user-button" src="./img/10_buttons/right.png" title="play" alt="play"  onclick="">
+            </div>
 
-        <img id="layerGameWin" class="d-none" src="img/9_intro_outro_screens/game_over/game over.png" alt="">
-        <img id="layerGameLose" class="d-none" src="img/9_intro_outro_screens/game_over/you lost.png" alt="">
-        <div id="gameRestartButton" class="start-button d-none">
-            <button onclick="window.location.reload();">Restart</button>
+            <img id="gameRestartButton" class="user-button d-none" src="./img/10_buttons/restart.png" title="restart" alt="restart" onclick="window.location.reload()">
+                      <!-- <div ></div> -->
         </div>
     </div>
 
