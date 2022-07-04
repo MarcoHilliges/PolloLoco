@@ -55,6 +55,7 @@ class World {
                 self.draw();
             }
             if(world.gameWin){
+                
                 document.getElementById('layerGameWin').classList.remove('d-none');
                 document.getElementById('gameRestartButton').classList.remove('d-none');
                 document.getElementById('gameButtonsLeft').classList.add('d-none');
@@ -145,6 +146,7 @@ class World {
             if(this.character.isColliding(bottle)){
                 this.bottleBar.setPercentage(this.bottleBar.percentage + 5);
                 bottle.x = -3000;
+                bottle.bottle_pull.play();
                 // console.log('collision with bottle');
             }
         });
@@ -152,6 +154,7 @@ class World {
             if(this.character.isColliding(bottle) && bottle.onGround){
                 this.bottleBar.setPercentage(this.bottleBar.percentage + 5);
                 bottle.x = -3000;
+                bottle.bottle_pull.play();
                 // console.log('collision with bottle');
             }
         });
@@ -160,6 +163,8 @@ class World {
                 this.coinBar.setPercentage(this.coinBar.percentage + 5);
                 coin.collected = true;
                 coin.x = -3000;
+
+                coin.coin_sound.play();
                 // console.log('collision with coin');
             }
         });
@@ -184,8 +189,7 @@ class World {
                     this.level.enemies[0].hurt = true;
                     // console.log('collision with bottle and endboss, energy', this.level.enemies[0].energy);
 
-                    bottle.energy = -100;
-                    
+                    bottle.energy = -100;                    
                 }
                 // console.log(bottle);
             })

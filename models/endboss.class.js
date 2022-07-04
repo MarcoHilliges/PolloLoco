@@ -59,6 +59,10 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/5_dead/G26.png'
     ]
 
+    walking_sound = new Audio('./audio/endbossWalking2.mp3');
+    hurt_sound = new Audio('./audio/endbossHurt.mp3');
+    attack_sound = new Audio('./audio/endbossAttack.mp3');
+    dead_sound = new Audio('./audio/endbossDead.mp3');
 
     constructor(){
         super().loadImage(this.IMAGES_WAITING[0]);
@@ -110,6 +114,10 @@ class Endboss extends MovableObject{
         setInterval( () => {            //Kurzschreibweise einer Funktion.
             if(this.dead && i < 3){
                 this.playAnimation(this.IMAGES_DEAD);
+                this.walking_sound.pause();
+                this.hurt_sound.pause();
+                this.attack_sound.pause();
+                this.dead_sound.play();
                 i++;
             }
             else if (this.dead && i >= 3){
@@ -123,9 +131,12 @@ class Endboss extends MovableObject{
 
             else if(this.hurt){
                 this.playAnimation(this.IMAGES_HURT);
+                this.walking_sound.pause();
+                this.attack_sound.pause();
+                this.hurt_sound.play();
                 setTimeout(() => {
                     this.hurt = false;
-                }, 500);
+                }, 800);
             }
             else if(!this.angry && !this.angry){
                 this.playAnimation(this.IMAGES_WAITING);
@@ -137,10 +148,13 @@ class Endboss extends MovableObject{
             }
             else if(this.walking){
                 this.playAnimation(this.IMAGES_WALKING);
+                this.walking_sound.play();
                 // console.log('walking',this.angry, this.walking, this.attack)
             }
             else if(this.attack){
                 this.playAnimation(this.IMAGES_ATTACK);
+                this.walking_sound.pause();
+                this.attack_sound.play();
                 // console.log('attack',this.angry, this.walking, this.attack)
             }
             

@@ -97,6 +97,7 @@ class Character extends MovableObject {
                 this.moveRight();
                 this.otherDirection = false;
                 this.walking_sound.play();
+                this.walking_sound.volume = 0.5;
                 this.timeLastMove = 0;
                 this.backgroundMovingRight();
             };
@@ -105,6 +106,7 @@ class Character extends MovableObject {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
+                this.walking_sound.volume = 0.5;
                 this.timeLastMove = 0;
                 this.backgroundMovingLeft();
             };

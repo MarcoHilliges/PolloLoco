@@ -9,6 +9,8 @@ class Chicken extends MovableObject{
     characterDistance;
     soundvolume = 1;
     dead_sound_played = false;
+
+    
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -41,7 +43,6 @@ class Chicken extends MovableObject{
     animate(){
         setInterval(() => {
             this.randomDirection();
-            
         }, 5000);
 
         setInterval(() => {
@@ -67,8 +68,6 @@ class Chicken extends MovableObject{
                     this.dead_sound.play();
                     this.dead_sound_played = true;
                 }
-                
-                
             }
             else{
                 this.playAnimation(this.IMAGES_WALKING);
@@ -77,7 +76,7 @@ class Chicken extends MovableObject{
                 
                 if (this.characterDistance <=700 && this.characterDistance >=-700 ){
                     this.soundvolume = this.characterDistance / 700;
-                    console.log(1-this.soundvolume);
+                    // console.log(1-this.soundvolume);
                     this.walking_sound.play();
                     this.walking_sound.volume = 1- this.soundvolume;
                 }else{
