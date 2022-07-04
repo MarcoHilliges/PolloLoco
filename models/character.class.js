@@ -70,7 +70,7 @@ class Character extends MovableObject {
     ];
 
     world;
-    walking_sound = new Audio('./audio/charakterWalking.mp3')
+    walking_sound = new Audio('./audio/charakterWalking.mp3');
 
     // currentImage = 0;    verschoben in MovableObject
 
