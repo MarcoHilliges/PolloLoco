@@ -52,22 +52,39 @@ canvas{
     justify-content: space-evenly;
 }
 
+.gameButtons{
+    display: none;
+}
+
 .gameButtons img{
-    margin: 20px;
+    margin: 0 20px;
+}
+
+.destopButtonsDescription{
+    display: flex;
+    align-items: center;
 }
 
 .d-none{
-    display: none;
+    display: none !important;
 }
 
 .color-transparent{
     background-color: transparent;
 }
 
+.p-left{
+    padding-left: 10px;
+}
+
 @media(orientation: portrait) and (max-width: 720px){
     canvas {
-        width: 98vw;
+        width: 94vw;
     }
+
+    /* .gameButtons {
+        display: block;
+    } */
 }
 
 
@@ -75,6 +92,16 @@ canvas{
 
 @media(orientation: landscape) and (max-height: 480px){
     canvas {
-        height: 98vh;
+        height: 94vh;
+    }
+}
+
+@media (hover: none){
+    .gameButtons {
+        display: block;
+    }
+
+    .destopButtonsDescription{
+        display: none;
     }
 }
