@@ -59,6 +59,7 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/5_dead/G26.png'
     ]
 
+    angry_sound = new Audio('./audio/endbossAngry.mp3');
     walking_sound = new Audio('./audio/endbossWalking2.mp3');
     hurt_sound = new Audio('./audio/endbossHurt.mp3');
     attack_sound = new Audio('./audio/endbossAttack.mp3');
@@ -144,15 +145,18 @@ class Endboss extends MovableObject{
             }
             else if(this.angry && !this.walking && !this.attack){
                 this.playAnimation(this.IMAGES_ALERT);
+                this.angry_sound.play();
                 // console.log('alert',this.angry, this.walking, this.attack)
             }
             else if(this.walking){
                 this.playAnimation(this.IMAGES_WALKING);
+                this.angry_sound.pause();
                 this.walking_sound.play();
                 // console.log('walking',this.angry, this.walking, this.attack)
             }
             else if(this.attack){
                 this.playAnimation(this.IMAGES_ATTACK);
+                this.angry_sound.pause();
                 this.walking_sound.pause();
                 this.attack_sound.play();
                 // console.log('attack',this.angry, this.walking, this.attack)

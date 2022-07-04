@@ -30,51 +30,98 @@
     <script src="./js/game.js"></script>
     
 </head>
-<body onload="">
+<body>
+    <div id="frame">
+        <canvas id="canvas" 
+                width="720" 
+                height="480">
+        </canvas>
 
-<div id="frame">
-    <canvas id="canvas" width="720" height="480" class="">
-               
-    </canvas>
+        <div id="overlay">
+            <img class="coverImg" 
+                id="layerGameStart" 
+                src="./img/9_intro_outro_screens/start/startscreen_1.png">
 
-    <div id="overlay">
-        <img class="coverImg" id="layerGameStart" src="./img/9_intro_outro_screens/start/startscreen_1.png" alt=""> 
-        <img id="layerGameWin" class="d-none coverImg" src="img/9_intro_outro_screens/game_over/game over.png" alt="">
-        <img id="layerGameLose" class="d-none coverImg" src="img/9_intro_outro_screens/game_over/you lost.png" alt="">     
-        <div class="start-button">
-            <div id="gameButtonsLeft" class="gameButtons d-none"> 
-                <img id="gameButtonJump" class="user-button" src="./img/10_buttons/jump.png" title="play" alt="play" onclick="">
-                <img id="gameButtonThrow" class="user-button" src="./img/10_buttons/throw.png" title="play" alt="play" onclick="">
+            <img class="d-none coverImg" 
+                id="layerGameWin" 
+                src="img/9_intro_outro_screens/game_over/game over.png">
+
+            <img class="d-none coverImg"
+                id="layerGameLose" 
+                src="img/9_intro_outro_screens/game_over/you lost.png">
+
+            <div class="start-button">
+                <div class="gameButtons d-none"
+                    id="gameButtonsLeft"> 
+                    <img class="user-button" 
+                        id="gameButtonJump" 
+                        src="./img/10_buttons/jump.png" 
+                        title="play" 
+                        alt="play">
+
+                    <img class="user-button" 
+                        id="gameButtonThrow" 
+                        src="./img/10_buttons/throw.png" 
+                        title="play" 
+                        alt="play">
+                </div>
+
+                <div class="destopButtonsDescription">
+                    <img src="./img/10_buttons/jump2.png" 
+                        title="SPACE" 
+                        alt="SPACE">
+                    <span>= Jump</span>
+
+                    <img class="p-left" 
+                        src="./img/10_buttons/throw2.png" 
+                        title="D" 
+                        alt="D">
+                    <span>= Throw</span>
+                </div>
+
+                <img class="user-button" 
+                    id="gameStartButton" 
+                    src="./img/10_buttons/play.png" 
+                    title="play" 
+                    alt="play"  
+                    onclick="start()">
+
+                <img class="user-button d-none" 
+                    id="gameRestartButton" 
+                    src="./img/10_buttons/restart.png" 
+                    title="restart" 
+                    alt="restart" 
+                    onclick="window.location.reload()">
+
+                <div class="destopButtonsDescription">
+                    <img src="./img/10_buttons/left2.png" 
+                        title="arrow keys left" 
+                        alt="arrow keys left">
+                    <span>= Left</span>
+
+                    <img class="p-left" 
+                        src="./img/10_buttons/right2.png" 
+                        title="arrow keys right" 
+                        alt="arrow keys right">
+                    <span>= Right</span>
+                </div>
+
+                <div class="gameButtons d-none" 
+                    id="gameButtonsRight">
+                    <img class="user-button" 
+                        id="gameButtonLeft" 
+                        src="./img/10_buttons/left.png" 
+                        title="play" 
+                        alt="play">
+
+                    <img class="user-button" 
+                        id="gameButtonRight" 
+                        src="./img/10_buttons/right.png" 
+                        title="play" 
+                        alt="play">
+                </div>
             </div>
-
-            <div class="destopButtonsDescription">
-                <img src="./img/10_buttons/jump2.png" title="SPACE" alt="SPACE">
-                <span>= Jump</span>
-                <img class="p-left" src="./img/10_buttons/throw2.png" title="D" alt="D">
-                <span>= Throw</span>
-            </div>
-
-            <img id="gameStartButton" class="user-button" src="./img/10_buttons/play.png" title="play" alt="play"  onclick="start()">
-
-            <div class="destopButtonsDescription">
-                <img src="./img/10_buttons/left2.png" title="arrow keys left" alt="arrow keys left">
-                <span>= Left</span>
-                <img class="p-left" src="./img/10_buttons/right2.png" title="arrow keys right" alt="arrow keys right">
-                <span>= Right</span>
-                
-            </div>
-
-            <div id="gameButtonsRight" class="gameButtons d-none">
-                <img id="gameButtonLeft" class="user-button" src="./img/10_buttons/left.png" title="play" alt="play"  onclick="">
-                <img id="gameButtonRight" class="user-button" src="./img/10_buttons/right.png" title="play" alt="play"  onclick="">
-            </div>
-
-            <img id="gameRestartButton" class="user-button d-none" src="./img/10_buttons/restart.png" title="restart" alt="restart" onclick="window.location.reload()">
-                      <!-- <div ></div> -->
         </div>
     </div>
-
-    <div>  </div>
-</div>
 </body>
 </html>
