@@ -10,7 +10,6 @@ class KeyBoard{
         setTimeout(() => {
             this.screenButtonPressEvent();
         }, 500);
-        
     }
 
     screenButtonPressEvent(){

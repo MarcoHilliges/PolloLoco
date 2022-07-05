@@ -34,41 +34,27 @@ class ThrowableObject extends MovableObject{
         this.loadImages(this.IMAGES_THROW);
         this.loadImages(this.IMAGES_ON_GROUND);
         this.loadImages(this.IMAGES_SPLASH);
+        this.startingPoint(x, y, onGround);
+        this.height = 60;
+        this.width = 40;
+        this.animate();
+    }
 
+    startingPoint(x, y, onGround){
         if(onGround){
-            // console.log(onGround);
-            
-            this.x = -1000 + Math.random() * 3000;     // Math.random() gibt eine zufällige Zahl zwischen 0 und 1 aus
-            this.y = this.objectMinY;      // y-position - Bildhöhe, da von ober gezählt wird
+            this.x = -1000 + Math.random() * 3000;
+            this.y = this.objectMinY;
         }
         else{
             this.x = 100;
             this.y = 100;
             this.throw(x, y);
         }
-        
-        this.height = 60;
-        this.width = 40;
-    
-        this.animate();
     }
 
     animate(){
         setInterval(() => {
-            if(this.energy <= 0){
-                this.playAnimation(this.IMAGES_SPLASH);
-                if(!this.distroyed){
-                    this.distroyed_sound.play();
-                }
-                this.acceleration = 0;
-                this.speedY = 0;
-                this.distroyed = true;
-                
-                setTimeout(() => {
-                    this.x = -2000;
-                    this.height = 0;
-                }, 150);                
-            }
+            if(this.energy <= 0) this.bottleDistroy();
 
             else if(this.y!==this.objectMinY){
                 this.playAnimation(this.IMAGES_THROW);
@@ -88,9 +74,21 @@ class ThrowableObject extends MovableObject{
         this.applyGravity(this.objectMinY);
         this.throw_sound.play();
         setInterval(() => {           
-            if(this.y!==this.objectMinY || this.y > this.objectMinY){
+            if(this.y!==this.objectMinY || this.y > this.objectMinY)
                 this.x += 2.5;
-            }
         }, 1000 / 144);
+    }
+
+    bottleDistroy(){
+        this.playAnimation(this.IMAGES_SPLASH);
+        if(!this.distroyed) this.distroyed_sound.play();
+        this.acceleration = 0;
+        this.speedY = 0;
+        this.distroyed = true;
+                
+        setTimeout(() => {
+            this.x = -2000;
+            this.height = 0;
+        }, 150);              
     }
 }

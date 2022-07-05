@@ -1,28 +1,20 @@
 class MovableObject extends DrawableObject{
 
     energy = 100;
-
     lastHit = 0;
-
-    speed = 15 / 144; // 15px/s         144 ergibt eine sehr flüssige Bewegung
-
+    speed = 15 / 144;
     otherDirection = false;
-   
     speedY = 0;
-    acceleration = 2.5;   // Gravitationsbeschleunigung
+    acceleration = 2.5;
     objectMinY;
 
     applyGravity(objectMinY){
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0){   // objectMinY wird benötigt um 
+            if (this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-            else{
-                this.y = objectMinY;
-            }
-            
-
+            else this.y = objectMinY;  
         }, 1000 / 25);
     }
 
@@ -54,8 +46,8 @@ class MovableObject extends DrawableObject{
     }
 
     isHurt(){
-        let timepassed = new Date().getTime() - this.lastHit; // Differenz in Millisekunden
-        timepassed = timepassed / 1000; // Differenz in Sekunden
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
         return timepassed < 0.5;
     }
 
@@ -66,10 +58,8 @@ class MovableObject extends DrawableObject{
 
 
     playAnimation(images){
-        // z.B. Walk animation
-        let i = this.currentImage % images.length; // Modulo-Funktion = gibt nur den Rest als Wert aus 
-        // 0 / 6 = 0 Rest 0, 1 / 6 Rest 1, ..., 7 / 6 Rest 1 also Rest 0, 1, 2, 3, 4, 5, 0, 1, ...
-        let path = images[i]; // 
+        let i = this.currentImage % images.length;
+        let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
     }
@@ -85,9 +75,8 @@ class MovableObject extends DrawableObject{
     randomDirection(){
         if(this.dead == false){
             let number = Math.round(Math.random());
-
-            if(number == 1){this.otherDirection = true;}
-            else{this.otherDirection = false;}
+            if(number == 1) this.otherDirection = true;
+            else this.otherDirection = false;
         }
     }
 

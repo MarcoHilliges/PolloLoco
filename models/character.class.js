@@ -92,27 +92,25 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.walking_sound.pause();
-            this.characterMoving();
-            this.world.camera_x = -this.x +120;
+            if (!world.gameEnd){
+                this.walking_sound.pause();
+                this.characterMoving();
+                this.world.camera_x = -this.x +120;
+            }
         }, 1000 / 144);
 
-        
         setInterval(() => {
-            this.characterAnimation();
-            
+            if (!world.gameEnd)
+             this.characterAnimation();    
         }, 1000 / 7);
-
     }
 
     characterMoving(){
         if (this.world.keyboard.RIGHT && 
-            this.x <= 
-            this.world.level.level_end_x)
+            this.x <= this.world.level.level_end_x)
                 this.characterMovingRight();
         if (this.world.keyboard.LEFT && 
-            this.x >= 
-            this.characterMinX)
+            this.x >= this.characterMinX)
                 this.characterMovingLeft();
         if (this.world.keyboard.SPACE && 
             !this.isAboveGround()){
@@ -124,14 +122,12 @@ class Character extends MovableObject {
     characterMovingRight(){
         this.moveRight();
         this.otherDirection = false;
-
         this.backgroundMovingRight();
     }
 
     characterMovingLeft(){
         this.moveLeft();
         this.otherDirection = true;
-
         this.backgroundMovingLeft();
     }
 
@@ -193,9 +189,7 @@ class Character extends MovableObject {
     }
 
     calculateIdle() {
-        if(this.timeLastMove == 0){
-            this.timeLastMove = new Date().getTime(); 
-        }
+        if(this.timeLastMove == 0) this.timeLastMove = new Date().getTime();
         this.timepassedLastMove = new Date().getTime()-this.timeLastMove;
         this.timepassedLastMove = this.timepassedLastMove / 1000;
     }
